@@ -18,6 +18,7 @@ class _ChatScreenState extends State<ChatScreen> {
   late User loggedInUser ;
   late String messageText;
   final messageTextController = TextEditingController();
+  bool isTextFieldEmpty =true;
 
   void initState(){
     super.initState();
@@ -86,6 +87,8 @@ class _ChatScreenState extends State<ChatScreen> {
         title: Text('MindMate Chat'),
         backgroundColor:Color(0xFF0D2329),
       ),
+
+
       body: SafeArea(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -108,6 +111,9 @@ class _ChatScreenState extends State<ChatScreen> {
                     final messageSender = message.get('sender');
 
                     final currentUser = loggedInUser.email;
+
+
+
 
                     final messageBubble =
                         MessageBubble(sender: messageSender, text: messageText,isMe:currentUser==messageSender,);
@@ -134,6 +140,10 @@ class _ChatScreenState extends State<ChatScreen> {
                       controller: messageTextController,
                       onChanged: (value) {
                         messageText = value;
+                        setState(() {
+                          // Update the emptiness state of the text field
+                           isTextFieldEmpty = value.isEmpty;
+                        });
                       },
                       decoration: kMessageTextFieldDecoration,
                     ),
@@ -144,14 +154,14 @@ class _ChatScreenState extends State<ChatScreen> {
                       child: Text(
                         'Send',
                       ),
-                      onPressed: () {
+                      onPressed: isTextFieldEmpty? null : () {
                         messageTextController.clear();
-                        _firestore.collection('messages').add({
-                          'text':messageText,
-                          'sender':loggedInUser.email,
-                          'timestamp': DateTime.now(),
-                        });
-                      },
+                      _firestore.collection('messages').add({
+                    'text':messageText,
+                    'sender':loggedInUser.email,
+                    'timestamp': DateTime.now(),
+                  });
+    },
                       style: ButtonStyle(
                         backgroundColor: MaterialStateProperty.all<Color>(Color(0xFF0D2329)),
                       ),

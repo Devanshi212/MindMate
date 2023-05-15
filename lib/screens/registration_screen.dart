@@ -23,7 +23,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   late String email;
   late String password;
   late String age;
-  late String name;
+  late String usrname;
   late String country;
   late String talk;
   @override
@@ -53,11 +53,11 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
 
                   textAlign: TextAlign.center,
                   onChanged: (value) {
-                    name = value;
+                    usrname = value;
 
                   },
                   decoration: InputDecoration(
-                    hintText: 'Enter your Name',
+                    hintText: 'Enter Username',
                     contentPadding:
                     EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
                     border: OutlineInputBorder(
@@ -84,7 +84,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                     email = value;
                   },
                   decoration: InputDecoration(
-                    hintText: 'Enter your email',
+                    hintText: 'Enter Email',
                     contentPadding:
                         EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
                     border: OutlineInputBorder(
@@ -110,7 +110,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                     password = value;
                   },
                   decoration: InputDecoration(
-                    hintText: 'Enter your password',
+                    hintText: 'Enter Password',
                     contentPadding:
                         EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
                     border: OutlineInputBorder(
@@ -239,7 +239,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                             _firestore.collection('users').add({
                               "Age":age,
                               "Country":country,
-                              "Name":name,
+                              "Name":usrname,
                               "email-ID":email,
                               "talk":talk
 
